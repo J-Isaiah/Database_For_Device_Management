@@ -8,8 +8,47 @@
 <body>
 <h1>Add New Device</h1>
 <form>
-
+    <fieldset>
+        <legend>Location</legend>
+        <label for="location">Location</label>
+        <select id="location" name="location">
+            <option value="uno">University of Nebraska-Omaha</option>
+            <option value="unl">University of Nebraska-Lincoln</option>
+            <option value="tamu">the Agricultural and Mechanical College of Texas</option>
+        </select>
+    </fieldset>
+    <fieldset>
+        <legend>Sensors In Device</legend>
+        <div>
+            <input type="checkbox" id="Electrocardiogram" name="Electrocardiogram">
+            <label for="Electrocardiogram">Electrocardiogram</label>
+        </div>
+        <div>
+            <input type="checkbox" id="inertial_measurement_unit" name="inertial_measurement_unit">
+            <label for="inertial_measurement_unit">Inertial Measurement Unit</label>
+        </div>
+        <div>
+            <input type="checkbox" id="optical_pulse_oximeter" name="optical_pulse_oximeter">
+            <label for="optical_pulse_oximeter">Optical Pulse Oximeter</label>
+        </div>
+        <div>
+            <input type="checkbox" id="Microphone" name="Microphone">
+            <label for="Microphone">Microphone</label>
+        </div>
+        <div>
+            <input type="checkbox" id="temperature_sensor" name="temperature_sensor">
+            <label for="temperature_sensor">Temperature Sensor</label>
+        </div>
+        <div>
+            <input type="checkbox" id="electronic_nose" name="electronic_nose">
+            <label for="electronic_nose">Electronic Nose</label>
+        </div>
+        <div>
+            <input type="checkbox" id="galvanic_skin_response" name="galvanic_skin_response">
+            <label for="galvanic_skin_response">Galvanic Skin Response</label>
+        </div>
+    </fieldset>
+    <input type="submit" value="ADD DEVICE">
 </form>
-
 </body>
 </html>
