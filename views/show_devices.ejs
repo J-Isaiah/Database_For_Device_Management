@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Devices</title>
+</head>
+<body>
+<h1>Devices</h1>
+<% devices.forEach(device => { %>
+    <div>
+        <p>Location: <%= device.university_name %></p>
+        <p>Device Status: <%= device.device_status %></p>
+        <p>Date Deployed: <%= device.date_deployed %></p>
+        <p>Electrocardiogram Sensor: <%= device.electrocardiogram %></p>
+        <p>IMU Sensor: <%= device.IMU %></p>
+        <p>Optical Pulse Oximeter Sensor: <%= device.optical_pulse_oximeter %></p>
+        <p>Microphone: <%= device.microphone %></p>
+        <p>Temperature Sensor: <%= device.temperature_sensor %></p>
+        <p>Electronic Nose: <%= device.electronic_nose %></p>
+        <p>Galvanic Skin Response: <%= device.galvanic_skin_response %></p>
+        <p>Micro Controller Model Number: <%= device.microcontroller_model_number %></p>
+        <p>Data Info: <%= device.info_about_data_storage %></p>
+        <P>------------------------------------------------------------------------------------------------------------------------</P>
+    </div>
+<% }); %>
+</body>
+</html>
