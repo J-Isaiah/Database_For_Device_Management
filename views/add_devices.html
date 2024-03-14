@@ -48,6 +48,52 @@
             <label for="galvanic_skin_response">Galvanic Skin Response</label>
         </div>
     </fieldset>
+    <fieldset>
+        <legend>Hardware Profile</legend>
+        <div>
+            <label for="micro_controller_number">Micro Controller Model Number:</label>
+            <input type="number" id="micro_controller_number" name="micro_controller_number">
+        </div>
+        <br>
+        <div>
+            <label for="real_time_clock_model_number">Real Time Clock Model Number:</label>
+            <input type="number" id="real_time_clock_model_number" name="real_time_clock_model_number">
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Firmware Profile</legend>
+        <div>
+            <label for="firmware_version">Firmware Version:</label>
+            <input type="text" id="firmware_version" name="firmware_version" placeholder="">
+        </div>
+        <br>
+        <div>
+            <label for="date_installed">Date Installed:</label>
+            <input type="date" id="date_installed" name="date_installed" placeholder="">
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Device</legend>
+        <div>
+            <label for="model_number">Model Number</label>
+            <input type="number" id="model_number" name="model_number">
+        </div>
+        <br>
+        <div>
+            <label for="device_status">Device Status:</label>
+            <select id="device_status" name="device_status">
+                <option value="Inactive">Inactive</option>
+                <option value="Active">Active</option>
+                <option value="Broken">Broken :(</option>
+            </select>
+        </div>
+        <br>
+        <div>
+            <label for="date_deployed">Date Deployed</label>
+            <input type="date" id="date_deployed" name="date_deployed">
+        </div>
+    </fieldset>
+    <br>
     <input type="submit" value="ADD DEVICE">
 </form>
 </body>
