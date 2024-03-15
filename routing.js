@@ -5,7 +5,7 @@ const db = require('./database')
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({extended: false}))
 app.get('/', function (req, res) {
     res.render('index')
 })
@@ -52,7 +52,9 @@ app.get('/showDevices', async function (req, res) {
                     info_about_data_storage: device.info_about_data_storage
                 };
             });
-            res.render('add_devices', {devices: formattedData});
+            res.render('show_devices', {devices: formattedData}
+        )
+            ;
         }
     } catch (err) {
         console.log(err);
@@ -67,7 +69,7 @@ app.get('/addDevice', function (req, res) {
 app.post('/addDevice', function (req, res) {
     var firmware_version = req.body.firmware_version
     console.log(firmware_version)
-    res.render('/')
+    res.render('index')
 })
 
 app.listen(8080, () => {
