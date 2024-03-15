@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
-const bodyparser = require('body-parser')
+const bodyParser = require('body-parser')
 const db = require('./database')
 
 app.set('view engine', 'ejs')
-
+app.use(bodyParser.json())
 app.get('/', function (req, res) {
     res.render('index')
 })
@@ -58,6 +58,13 @@ app.get('/showDevices', async function (req, res) {
         res.status(500).send('SERVER ERROR');
     }
 });
+// Adding Device page
+app.get('/addDevice', function (
+    req, res) {
+    console.log('WORKING')
+    res.render('add_devices')
+})
+app.post('/addDevice',)
 
 app.listen(8080, () => {
     console.log('Server is listening on port 8080');
