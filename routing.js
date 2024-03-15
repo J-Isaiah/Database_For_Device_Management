@@ -5,6 +5,7 @@ const db = require('./database')
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 app.get('/', function (req, res) {
     res.render('index')
 })
@@ -51,7 +52,7 @@ app.get('/showDevices', async function (req, res) {
                     info_about_data_storage: device.info_about_data_storage
                 };
             });
-            res.render('show_devices', {devices: formattedData});
+            res.render('add_devices', {devices: formattedData});
         }
     } catch (err) {
         console.log(err);
@@ -59,12 +60,15 @@ app.get('/showDevices', async function (req, res) {
     }
 });
 // Adding Device page
-app.get('/addDevice', function (
-    req, res) {
+app.get('/addDevice', function (req, res) {
     console.log('WORKING')
     res.render('add_devices')
 })
-app.post('/addDevice',)
+app.post('/addDevice', function (req, res) {
+    var firmware_version = req.body.firmware_version
+    console.log(firmware_version)
+    res.render('/')
+})
 
 app.listen(8080, () => {
     console.log('Server is listening on port 8080');
