@@ -66,7 +66,7 @@ app.get('/addDevice', function (req, res) {
     console.log('WORKING')
     res.render('add_devices')
 })
-app.post('/addDevice', function (req, res) {
+app.post('/addDevice', async function (req, res) {
     var location = req.body.location
     var firmware_version = req.body.firmware_version
     var electrocardiogram = check_if_empty('electrocardiogram')
@@ -78,12 +78,15 @@ app.post('/addDevice', function (req, res) {
     var galvanic_skin_response = check_if_empty(req.body, 'galvanic_skin_response')
     var micro_controller_number = req.body.micro_controller_number
     var firmware_version = req.body.firmware_version
+    var real_time_clock_model_number = req.body.real_time_clock_model_number
     var date_installed = req.body.date_installed
     var model_number = req.body.model_number
     var device_status = req.body.device_status
     var date_deployed = req.body.date_deployed
+    var real_time_clock_model_number = req.body.real_time_clock_model_number
+    var info_about_data_storage = req.body.info_about_data_storage
 
-
+    console.log(await db.allDevices())
     console.log(date_deployed)
     res.render('index')
 })
