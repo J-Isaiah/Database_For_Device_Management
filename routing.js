@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
 const db = require('./database')
+const util = require('./utilities')
+const {check_if_empty} = require("./utilities");
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.json())
@@ -52,9 +54,7 @@ app.get('/showDevices', async function (req, res) {
                     info_about_data_storage: device.info_about_data_storage
                 };
             });
-            res.render('show_devices', {devices: formattedData}
-        )
-            ;
+            res.render('show_devices', {devices: formattedData});
         }
     } catch (err) {
         console.log(err);
@@ -67,10 +67,27 @@ app.get('/addDevice', function (req, res) {
     res.render('add_devices')
 })
 app.post('/addDevice', function (req, res) {
+    var location = req.body.location
     var firmware_version = req.body.firmware_version
-    console.log(firmware_version)
+    var electrocardiogram = check_if_empty('electrocardiogram')
+    var inertial_measurement_unit = check_if_empty(req.body, 'inertial_measurement_unit')
+    var optical_pulse_oximeter = check_if_empty(req.body, 'optical_pulse_oximeter')
+    var Microphone = check_if_empty(req.body, 'Microphone')
+    var temperature_sensor = check_if_empty(req.body, 'temperature_sensor')
+    var electronic_nose = check_if_empty(req.body, 'electronic_nose')
+    var galvanic_skin_response = check_if_empty(req.body, 'galvanic_skin_response')
+    var micro_controller_number = req.body.micro_controller_number
+    var firmware_version = req.body.firmware_version
+    var date_installed = req.body.date_installed
+    var model_number = req.body.model_number
+    var device_status = req.body.device_status
+    var date_deployed = req.body.date_deployed
+
+
+    console.log(date_deployed)
     res.render('index')
 })
+
 
 app.listen(8080, () => {
     console.log('Server is listening on port 8080');
