@@ -1,4 +1,5 @@
 const mysql = require('mysql2')
+const {query} = require("express");
 
 
 require('dotenv').config();
@@ -88,19 +89,25 @@ function allDevices() {
 
 // Adding A device to the database
 
-function addDevice(micro_controller_number, real_time_clock_model_number, info_about_data_storage) {
-    //add sql queries using variables in routing
-    var q = 'INSERT INTO hardware_profile (microcontroller_model_number, real_time_clock_model_number, info_about_data_storage) VALUES (?,?,?)'
-    var values = [micro_controller_number, real_time_clock_model_number, info_about_data_storage]
+function addDevice(micro_controller_number, real_time_clock_model_number, info_about_data_storage, electrocardiogram, inertial_measurement_unit, optical_pulse_oximeter, Microphone, temperature_sensor, electronic_nose, galvanic_skin_response) {
+    var queries = [{
+        q: 'INSERT INTO hardware_profile (microcontroller_model_number, real_time_clock_model_number, info_about_data_storage) VALUES (?,?,?)',
+        v: [micro_controller_number, real_time_clock_model_number, info_about_data_storage]
+    }, {
+        q: 'INSERT INTO sensors (electrocardiogram, IMU, optical_pulse_oximeter, microphone, temperature_sensor, electronic_nose, galvanic_skin_response) VALUES (?,?,?,?,?,?,?)',
+        v: [electrocardiogram, inertial_measurement_unit, optical_pulse_oximeter, Microphone, temperature_sensor, electronic_nose, galvanic_skin_response]
+    },]
 
+    queries.forEach((query) => {
+        console.log((query.q))
+        connection.query(query.q, query.v, function (err, result) {
+            if (err) {
+                console.error('err executing query', err)
+            } else {
+                console.log('added to db')
 
-    connection.query(q, values, function (err, result) {
-        if (err) {
-            console.error(err)
-        } else {
-            console.log('added to db')
-
-        }
+            }
+        })
     })
 }
 

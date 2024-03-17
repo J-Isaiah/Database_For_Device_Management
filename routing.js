@@ -86,7 +86,8 @@ app.post('/addDevice', async function (req, res) {
     var real_time_clock_model_number = req.body.real_time_clock_model_number
     var info_about_data_storage = req.body.info_about_data_storage
 
-    await db.addDevice(micro_controller_number, real_time_clock_model_number, info_about_data_storage)
+
+    await db.addDevice(micro_controller_number, real_time_clock_model_number, info_about_data_storage, electrocardiogram, inertial_measurement_unit, optical_pulse_oximeter, Microphone, temperature_sensor, electronic_nose, galvanic_skin_response)
     res.render('index')
 })
 
