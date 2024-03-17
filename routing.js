@@ -86,8 +86,7 @@ app.post('/addDevice', async function (req, res) {
     var real_time_clock_model_number = req.body.real_time_clock_model_number
     var info_about_data_storage = req.body.info_about_data_storage
 
-    console.log(await db.allDevices())
-    console.log(date_deployed)
+    await db.addDevice(micro_controller_number, real_time_clock_model_number, info_about_data_storage)
     res.render('index')
 })
 

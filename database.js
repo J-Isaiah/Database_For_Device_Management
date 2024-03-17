@@ -88,18 +88,20 @@ function allDevices() {
 
 // Adding A device to the database
 
-function addDevice() {
+function addDevice(micro_controller_number, real_time_clock_model_number, info_about_data_storage) {
     //add sql queries using variables in routing
-    q = [{
-        SQL: 'INSERT INTO hardware_profile (microcontroller_model_number, real_time_clock_model_number, info_about_data_storage) VALUES (?,?,?)',
-        VAL: [micro_controller_number, real_time_clock_model_number, info_about_data_storage]
-    },]
+    var q = 'INSERT INTO hardware_profile (microcontroller_model_number, real_time_clock_model_number, info_about_data_storage) VALUES (?,?,?)'
+    var values = [micro_controller_number, real_time_clock_model_number, info_about_data_storage]
 
-    connection.query(q, function (err, result) {
-        if (err) throw err
-        console.log('Device Added To The Data Base')
-        return (micro_controller_number)
+
+    connection.query(q, values, function (err, result) {
+        if (err) {
+            console.error(err)
+        } else {
+            console.log('added to db')
+
+        }
     })
 }
 
-module.exports = {allDevices}
+module.exports = {allDevices, addDevice}
