@@ -67,27 +67,8 @@ app.get('/addDevice', function (req, res) {
     res.render('add_devices')
 })
 app.post('/addDevice', async function (req, res) {
-    var location = req.body.location
-    var firmware_version = req.body.firmware_version
-    var electrocardiogram = check_if_empty('electrocardiogram')
-    var inertial_measurement_unit = check_if_empty(req.body, 'inertial_measurement_unit')
-    var optical_pulse_oximeter = check_if_empty(req.body, 'optical_pulse_oximeter')
-    var Microphone = check_if_empty(req.body, 'Microphone')
-    var temperature_sensor = check_if_empty(req.body, 'temperature_sensor')
-    var electronic_nose = check_if_empty(req.body, 'electronic_nose')
-    var galvanic_skin_response = check_if_empty(req.body, 'galvanic_skin_response')
-    var micro_controller_number = req.body.micro_controller_number
-    var firmware_version = req.body.firmware_version
-    var real_time_clock_model_number = req.body.real_time_clock_model_number
-    var date_installed = req.body.date_installed
-    var model_number = req.body.model_number
-    var device_status = req.body.device_status
-    var date_deployed = req.body.date_deployed
-    var real_time_clock_model_number = req.body.real_time_clock_model_number
-    var info_about_data_storage = req.body.info_about_data_storage
-
-
-    await db.addDevice(micro_controller_number, real_time_clock_model_number, info_about_data_storage, electrocardiogram, inertial_measurement_unit, optical_pulse_oximeter, Microphone, temperature_sensor, electronic_nose, galvanic_skin_response)
+    const body = req.body
+    await db.addDevice(body.location_school, body.electrocardiogram, body.inertial_measurement_unit, body.optical_pulse_oximeter, body.microphone, body.temperature_sensor, body.electronic_nose, body.galvanic_skin_response, body.micro_controller_number, body.real_time_clock_model_number, body.info_about_data_storage, body.firmware_version, body.date_installed, body.model_number, body.device_status, body.date_deployed)
     res.render('index')
 })
 
