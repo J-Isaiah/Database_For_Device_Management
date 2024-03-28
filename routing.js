@@ -13,22 +13,6 @@ app.get('/', function (req, res) {
 })
 
 
-// app.get('/showPeople', async function (req, res) {
-//     try {
-//         const result = await db.allPeople();
-//         const formattedData = result.map(person => {
-//             return {
-//                 first: person.first,
-//                 last: person.last
-//             }
-//         })
-//         res.render('showPeople', {data: formattedData});
-//     } catch (err) {
-//         console.error(err);
-//         // Handle the error appropriately, maybe render error page
-//         res.status(500).send('Internal Server Error');
-//     }
-// });
 
 // Select all Devices From Database
 app.get('/showDevices', async function (req, res) {
