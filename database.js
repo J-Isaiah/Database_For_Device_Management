@@ -1,47 +1,14 @@
 const mysql = require('mysql2')
-const {query} = require("express");
-
-
 require('dotenv').config();
-
-
-var connection = mysql.createConnection({
+const connection = mysql.createConnection({
     multipleStatements: true,
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
 })
-
-// View All Devices
-// function allPeople() {
-//     let select_people = 'SELECT first_name AS first, last_name as last FROM study_victims ';
-//     return new Promise(function (resolve, reject) {
-//         connection.query(select_people, function (err, result) {
-//             if (err) {
-//                 reject(err)
-//             } else {
-//                 const formattedResult = result.map(person => {
-//                     return {
-//                         first: person.first,
-//                         last: person.last
-//                     }
-//                 })
-//                 resolve(formattedResult)
-//                 console.log(formattedResult)
-//             }
-//         })
-//     })
-// }
-
-// Show All devices
-
-// Function
-// allDevices()
-
 function allDevices() {
-    let select_all_devices = `
-        SELECT location.university_name,
+    let select_all_devices = `SELECT location_school.university_name,
                device.model_number,
                device.device_status,
                device.date_deployed,
@@ -57,9 +24,7 @@ function allDevices() {
         FROM device
                  JOIN hardware_profile ON device.hardware_id = hardware_profile.id
                  JOIN sensors ON device.hardware_id = sensors.id
-                 JOIN location ON device.location_id = location.id;
-    `
-
+                 JOIN location_school ON device.location_id = location_school.id;`
     return new Promise(function (resolve, reject) {
         connection.query(select_all_devices, function (err, result,) {
             if (err) {
@@ -67,12 +32,12 @@ function allDevices() {
             } else {
                 const formatted_results = result.map(device => {
                     return {
-                        luniversity_name: device.university_name,
+                        university_name: device.university_name,
                         device_status: device.device_status,
                         date_deployed: device.date_deployed,
                         electrocardiogram: device.electrocardiogram,
                         IMU: device.IMU,
-                        optica_pulse_oximeter: device.optical_pulse_oximeter,
+                        optical_pulse_oximeter: device.optical_pulse_oximeter,
                         microphone: device.microphone,
                         temperature_sensor: device.temperature_sensor,
                         electronic_nose: device.electronic_nose,
@@ -87,28 +52,51 @@ function allDevices() {
     })
 }
 
-// Adding A device to the database
 
-function addDevice(micro_controller_number, real_time_clock_model_number, info_about_data_storage, electrocardiogram, inertial_measurement_unit, optical_pulse_oximeter, Microphone, temperature_sensor, electronic_nose, galvanic_skin_response) {
-    var queries = [{
+async function addDevice(location_school, electrocardiogram, inertial_measurement_unit, optical_pulse_oximeter, microphone, temperature_sensor, electronic_nose, galvanic_skin_response, micro_controller_number, real_time_clock_model_number, info_about_data_storage, firmware_version, date_installed, model_number, device_status, date_deployed) {
+    let device_fkey = []
+    let queries = [{
         q: 'INSERT INTO hardware_profile (microcontroller_model_number, real_time_clock_model_number, info_about_data_storage) VALUES (?,?,?)',
         v: [micro_controller_number, real_time_clock_model_number, info_about_data_storage]
     }, {
         q: 'INSERT INTO sensors (electrocardiogram, IMU, optical_pulse_oximeter, microphone, temperature_sensor, electronic_nose, galvanic_skin_response) VALUES (?,?,?,?,?,?,?)',
-        v: [electrocardiogram, inertial_measurement_unit, optical_pulse_oximeter, Microphone, temperature_sensor, electronic_nose, galvanic_skin_response]
+        v: [electrocardiogram, inertial_measurement_unit, optical_pulse_oximeter, microphone, temperature_sensor, electronic_nose, galvanic_skin_response]
+    }, {
+        q: 'INSERT INTO firmware (firmware_version, date_installed) VALUES (?,?)', v: [firmware_version, date_installed]
+    }, {
+        q: 'INSERT INTO location_school (university_name) values (?)', v: [location_school]
+
     },]
 
-    queries.forEach((query) => {
-        console.log((query.q))
-        connection.query(query.q, query.v, function (err, result) {
-            if (err) {
-                console.error('err executing query', err)
-            } else {
-                console.log('added to db')
+    await Promise.all(queries.map(query => {
+        return new Promise((resolve, reject) => {
+            console.log((query.q))
+            connection.query(query.q, query.v, function (err, result) {
+                if (err) {
+                    console.error('err executing query', err)
+                    reject(err)
 
-            }
+                } else {
+                    device_fkey.push(result.insertId)
+                    console.log(device_fkey)
+                    resolve()
+
+
+                }
+
+            })
         })
+    }))
+
+    let deviceQ = 'INSERT INTO device (model_number, device_status, date_deployed, Hardware_id, sensor_id, firmware_id,location_id) values (?,?,?,?,?,?,?)'
+    let deviceV = [model_number, device_status, date_deployed, ...device_fkey]
+    connection.query(deviceQ, deviceV, function (err, result) {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log('a new device was added successfully')
+        }
     })
 }
 
-module.exports = {allDevices, addDevice}
+module.exports = {addDevice, allDevices}
