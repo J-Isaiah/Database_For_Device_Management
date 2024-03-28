@@ -12,9 +12,9 @@
         <legend>Location</legend>
         <label for="location_school">Location</label>
         <select id="location_school" name="location_school">
-            <option value="uno">University of Nebraska-Omaha</option>
-            <option value="unl">University of Nebraska-Lincoln</option>
-            <option value="tamu">the Agricultural and Mechanical College of Texas</option>
+            <option value="University of Nebraska-Omaha">University of Nebraska-Omaha</option>
+            <option value="University of Nebraska-Lincoln">University of Nebraska-Lincoln</option>
+            <option value="the Agricultural and Mechanical College of Texas">the Agricultural and Mechanical College of Texas</option>
         </select>
     </fieldset>
     <fieldset>
@@ -60,36 +60,36 @@
         <legend>Hardware Profile</legend>
         <div>
             <label for="micro_controller_number">Micro Controller Model Number:</label>
-            <input type="number" id="micro_controller_number" name="micro_controller_number">
+            <input type="number" id="micro_controller_number" name="micro_controller_number" required>
         </div>
         <br>
         <div>
             <label for="real_time_clock_model_number">Real Time Clock Model Number:</label>
-            <input type="number" id="real_time_clock_model_number" name="real_time_clock_model_number">
+            <input type="number" id="real_time_clock_model_number" name="real_time_clock_model_number" required>
         </div>
         <br>
         <div>
             <label for="info_about_data_storage">Info:</label>
-            <input type="text" id="info_about_data_storage" name="info_about_data_storage">
+            <input type="text" id="info_about_data_storage" name="info_about_data_storage" required>
         </div>
     </fieldset>
     <fieldset>
         <legend>Firmware Profile</legend>
         <div>
             <label for="firmware_version">Firmware Version:</label>
-            <input type="text" id="firmware_version" name="firmware_version" placeholder="">
+            <input type="text" id="firmware_version" name="firmware_version" placeholder="" required>
         </div>
         <br>
         <div>
             <label for="date_installed">Date Installed:</label>
-            <input type="date" id="date_installed" name="date_installed" placeholder="">
+            <input type="date" id="date_installed" name="date_installed" placeholder="" required>
         </div>
     </fieldset>
     <fieldset>
         <legend>Device</legend>
         <div>
             <label for="model_number">Model Number test</label>
-            <input type="number" id="model_number" name="model_number">
+            <input type="number" id="model_number" name="model_number" required>
         </div>
         <br>
         <div>
@@ -103,7 +103,7 @@
         <br>
         <div>
             <label for="date_deployed">Date Deployed</label>
-            <input type="date" id="date_deployed" name="date_deployed">
+            <input type="date" id="date_deployed" name="date_deployed" required>
         </div>
     </fieldset>
     <br>
