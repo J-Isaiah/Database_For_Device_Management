@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
-const db = require('./database')
-const util = require('./utilities')
-const {check_if_empty} = require("./utilities");
+const db = require('./js/connection')
+const util = require('./js/extra')
+const {check_if_empty} = require("./js/extra");
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.json())
@@ -24,6 +24,7 @@ app.get('/showDevices', async function (req, res) {
         } else {
             const formattedData = result.map(device => {
                 return {
+                    model_number: device.model_number,
                     university_name: device.university_name,
                     device_status: device.device_status,
                     date_deployed: device.date_deployed,

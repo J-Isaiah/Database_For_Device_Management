@@ -9,6 +9,7 @@
 <h1>Devices</h1>
 <% devices.forEach(device => { %>
     <div>
+        <p>Device Model Number: <%= device.model_number %></p>
         <p>Location: <%= device.university_name %></p>
         <p>Device Status: <%= device.device_status %></p>
         <p>Date Deployed: <%= device.date_deployed %></p>
@@ -21,7 +22,8 @@
         <p>Galvanic Skin Response: <%= device.galvanic_skin_response %></p>
         <p>Micro Controller Model Number: <%= device.microcontroller_model_number %></p>
         <p>Data Info: <%= device.info_about_data_storage %></p>
-        <P>------------------------------------------------------------------------------------------------------------------------</P>
+        <P>
+            ------------------------------------------------------------------------------------------------------------------------</P>
     </div>
 <% }); %>
 </body>

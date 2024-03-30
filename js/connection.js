@@ -22,6 +22,7 @@ function allDevices() {
                sensors.galvanic_skin_response,
                hardware_profile.microcontroller_model_number,
                info_about_data_storage
+               
         FROM device
                  JOIN hardware_profile ON device.hardware_id = hardware_profile.id
                  JOIN sensors ON device.hardware_id = sensors.id
@@ -33,6 +34,7 @@ function allDevices() {
             } else {
                 const formatted_results = result.map(device => {
                     return {
+                        model_number: device.model_number,
                         university_name: device.university_name,
                         device_status: device.device_status,
                         date_deployed: device.date_deployed,
