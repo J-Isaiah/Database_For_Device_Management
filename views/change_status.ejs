@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>change_status</title>
+
+</head>
+<body>
+<h1>Change Device Status</h1>
+<form method="post">
+    <% devices.forEach(device => { %>
+        <fieldset>
+            <legend>Select Device To Change</legend>
+            <input type="checkbox" id="<%= device.model_number %>" value="<% device.model_number %>">
+            <label for="<%= device.model_number %>">Model Number: <%= device.model_number %>,
+                Location: <%= device.university_name %></label>
+        </fieldset>
+    <% }); %>
+</form>
+</body>
+</html>

@@ -4,15 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Show Devices</title>
+    <style>
+        .button-link {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;}
+    </style>
 </head>
 <body>
 <h1>Device Study Gui</h1>
-<form action="/showDevices" method="get">
-    <button type="submit">All Devices</button>
-</form>
-<p></p>
-<form action = '/addDevice' method="get">
-    <button type="submit">Add New Device</button>
-</form>
+<nav>
+    <a href="/showDevices" class="button-link">All Devices</a>
+    <a href="/addDevice" class="button-link">Add New Device</a>
+    <a href="/changeStatus" class="button-link">Change Device Status</a>
+</nav>
 </body>
 </html>
