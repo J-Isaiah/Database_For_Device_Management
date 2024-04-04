@@ -9,50 +9,64 @@
             border: 1px solid black;
             padding: 10px;
         }
+
+        #main {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
 
 <h1>Devices</h1>
 <% devices.forEach(device => { %>
-    <div>
-        <p>Device Model Number: <%= device.model_number %></p>
-        <p>Location: <%= device.university_name %></p>
-        <p>Device Status: <%= device.device_status %></p>
-        <p>Date Deployed: <%= device.date_deployed %></p>
-<!--        <p>Electrocardiogram Sensor: <%= device.electrocardiogram %></p>-->
-<!--        <p>IMU Sensor: <%= device.IMU %></p>-->
-<!--        <p>Optical Pulse Oximeter Sensor: <%= device.optical_pulse_oximeter %></p>-->
-<!--        <p>Microphone: <%= device.microphone %></p>-->
-<!--        <p>Temperature Sensor: <%= device.temperature_sensor %></p>-->
-<!--        <p>Electronic Nose: <%= device.electronic_nose %></p>-->
-<!--        <p>Galvanic Skin Response: <%= device.galvanic_skin_response %></p>-->
-<!--        <p>Micro Controller Model Number: <%= device.microcontroller_model_number %></p>-->
-        <p>Data Info: <%= device.info_about_data_storage %></p>
+    <div id="main">
+        <div>
+            <p>Device Model Number: <%= device.model_number %></p>
+            <p>Location: <%= device.university_name %></p>
+            <div>
+                <p>Device Status: <%= device.device_status %></p>
 
+            </div>
+            <p>Date Deployed: <%= device.date_deployed %></p>
+            <!--        <p>Electrocardiogram Sensor: <%= device.electrocardiogram %></p>-->
+            <!--        <p>IMU Sensor: <%= device.IMU %></p>-->
+            <!--        <p>Optical Pulse Oximeter Sensor: <%= device.optical_pulse_oximeter %></p>-->
+            <!--        <p>Microphone: <%= device.microphone %></p>-->
+            <!--        <p>Temperature Sensor: <%= device.temperature_sensor %></p>-->
+            <!--        <p>Electronic Nose: <%= device.electronic_nose %></p>-->
+            <!--        <p>Galvanic Skin Response: <%= device.galvanic_skin_response %></p>-->
+            <!--        <p>Micro Controller Model Number: <%= device.microcontroller_model_number %></p>-->
+            <p>Data Info: <%= device.info_about_data_storage %></p>
+
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <th>Electrocardiogram Sensor</th>
+                    <th>IMU Sensor</th>
+                    <th>Optical Pulse Oximeter Sensor</th>
+                    <th>Microphone</th>
+                    <th>DTemperature Sensor</th>
+                    <th>Electronic Nose</th>
+                    <th>Galvanic Skin Response</th>
+                </tr>
+                <tr>
+                    <th><%= device.electrocardiogram %></th>
+                    <th><%= device.IMU %></th>
+                    <th><%= device.optical_pulse_oximeter %></th>
+                    <th><%= device.microphone %></th>
+                    <th><%= device.temperature_sensor %></th>
+                    <th><%= device.electronic_nose %></th>
+                    <th><%= device.galvanic_skin_response %></th>
+                </tr>
+            </table>
+        </div>
     </div>
-    <div>
-        <table>
-            <tr>
-                <th>Electrocardiogram Sensor</th>
-                <th>IMU Sensor</th>
-                <th>Optical Pulse Oximeter Sensor</th>
-                <th>Microphone</th>
-                <th>DTemperature Sensor</th>
-                <th>Electronic Nose</th>
-                <th>Galvanic Skin Response</th>
-            </tr>
-            <tr>
-                <th><%= device.electrocardiogram %></th>
-                <th><%= device.IMU %></th>
-                <th><%= device.optical_pulse_oximeter %></th>
-                <th><%= device.microphone %></th>
-                <th><%= device.temperature_sensor %></th>
-                <th><%= device.electronic_nose %></th>
-                <th><%= device.galvanic_skin_response %></th>
-            </tr>
-        </table>
-    </div>
+    <form action="/changeStatus">
+        <input type="submit" value="changeStatus">
+    </form>
+    <br>
     <hr>
 <% }); %>
 </body>
