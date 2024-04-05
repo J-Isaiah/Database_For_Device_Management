@@ -3,19 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>change_status</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }</style>
 
 </head>
 <body>
 <h1>Change Device Status</h1>
-<form method="post">
+<form action="/changeStatus" method="post">
     <% devices.forEach(device => { %>
-        <fieldset>
-            <legend>Select Device To Change</legend>
-            <input type="checkbox" id="<%= device.model_number %>" value="<% device.model_number %>">
-            <label for="<%= device.model_number %>">Model Number: <%= device.model_number %>,
-                Location: <%= device.university_name %></label>
-        </fieldset>
+    <fieldset>
+        <legend>Select Device To Change</legend>
+
+
+        <input type="checkbox" name='deviceID' id="<%= device.model_number %>" value="<%= device.model_number %>">
+        <label for="<%= device.model_number %>">Model Number: <%= device.model_number %>, Location: <%=
+            device.university_name %></label>
+    </fieldset>
     <% }); %>
+    <br>
+
+    <label for="status">Status</label> <br>
+    <select name="status" id="status">
+
+        <option value="Inactive">Inactive</option>
+        <option value="Active">Active</option>
+        <option value="Broken">Broken :(</option>
+    </select>
+
+    <input type="submit" value="Submit" name="Change Status">
+
 </form>
 </body>
 </html>

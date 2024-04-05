@@ -48,6 +48,12 @@ app.get('/addDevice', function (req, res) {
     console.log('WORKING')
     res.render('add_devices')
 })
+
+app.post('/addDevice', async function (req, res) {
+    const body = req.body
+    await db.addDevice(body.location_school, body.electrocardiogram, body.inertial_measurement_unit, body.optical_pulse_oximeter, body.microphone, body.temperature_sensor, body.electronic_nose, body.galvanic_skin_response, body.micro_controller_number, body.real_time_clock_model_number, body.info_about_data_storage, body.firmware_version, body.date_installed, body.model_number, body.device_status, body.date_deployed)
+    res.render('index')
+})
 //redirects to a page to change the status of devices
 app.get('/changeStatus', async function (req, res) {
     console.log('Redirected to change status')
@@ -68,10 +74,19 @@ app.get('/changeStatus', async function (req, res) {
         res.status(500).send('SERVER ERROR');
     }
 })
-app.post('/addDevice', async function (req, res) {
-    const body = req.body
-    await db.addDevice(body.location_school, body.electrocardiogram, body.inertial_measurement_unit, body.optical_pulse_oximeter, body.microphone, body.temperature_sensor, body.electronic_nose, body.galvanic_skin_response, body.micro_controller_number, body.real_time_clock_model_number, body.info_about_data_storage, body.firmware_version, body.date_installed, body.model_number, body.device_status, body.date_deployed)
-    res.render('index')
+
+app.post('/changeStatus', async function (req, res) {
+    {
+        try {
+            let device = []
+            device.push(req.body.deviceID)
+            db.changeStatus(device, req.body.status)
+
+        } catch (err) {
+
+        }
+        res.render('index')
+    }
 })
 
 app.listen(8080, () => {
