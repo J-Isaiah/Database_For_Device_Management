@@ -128,7 +128,10 @@ async function addDevice(location_school, electrocardiogram, inertial_measuremen
 
 function changeStatus(device, status) {
 
+
     for (let i of device) {
+
+
         id = parseInt(i)
 
 

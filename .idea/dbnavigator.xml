@@ -29,6 +29,10 @@
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="c611ef52-a85b-4d10-adb1-ac5bf30511a8" />
   </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="c611ef52-a85b-4d10-adb1-ac5bf30511a8" dataset="wearable_device_study.device" active-filter-id="" />
+    <filter-actions connection-id="c611ef52-a85b-4d10-adb1-ac5bf30511a8" dataset="wearable_device_study.firmware" active-filter-id="" />
+  </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
   </component>

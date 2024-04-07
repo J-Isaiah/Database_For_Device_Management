@@ -78,12 +78,20 @@ app.get('/changeStatus', async function (req, res) {
 app.post('/changeStatus', async function (req, res) {
     {
         try {
-            let device = []
-            device.push(req.body.deviceID)
+            let check = req.body.deviceID
+            console.log(check)
+            if (check === 1) {
+                var device = []
+                device.push(req.body.deviceID)
+
+            } else {
+                var device = req.body.deviceID
+            }
+
             db.changeStatus(device, req.body.status)
 
         } catch (err) {
-
+            console.log(err)
         }
         res.render('index')
     }
