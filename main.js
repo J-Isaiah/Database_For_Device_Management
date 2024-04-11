@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser')
 const db = require('./js/connection')
 const util = require('./js/extra')
-const {check_if_empty} = require("./js/extra");
+
 
 app.set('view engine', 'ejs') // sets the view engin to look for .ejs files
 app.use(bodyParser.json())
