@@ -5,20 +5,31 @@ const db = require('./js/connection')
 const util = require('./js/extra')
 const {check_if_empty} = require("./js/extra");
 
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs') // sets the view engin to look for .ejs files
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
+
+/**
+ * Renders The main page of the website
+ */
 app.get('/', function (req, res) {
     res.render('index')
 })
-// Select all Devices From Database
+/**
+ * Function calls all the devices that are in the database
+ */
 app.get('/showDevices', async function (req, res) {
-    console.log('Someone clicked a button')
+    //Logs that someone was routed to the show devices page
+    console.log('Collecting devices')
     try {
+        //calls function that selects all devices from database
+        // stores result as result
         const result = await db.allDevices();
+        //Checks if database is empty, Sends 'No Devices Found' on rendered page if empty
         if (result.length === 0) {
             res.send('NO DEVICES FOUND')
         } else {
+            // formats data
             const formattedData = result.map(device => {
                 return {
                     model_number: device.model_number,
@@ -36,9 +47,12 @@ app.get('/showDevices', async function (req, res) {
                     info_about_data_storage: device.info_about_data_storage
                 };
             });
+            //Renders show devices page, with the input formatted devices
+            //Devices Is the EJS id
             res.render('show_devices', {devices: formattedData});
         }
     } catch (err) {
+        // If error console log error, and send 500 server error
         console.log(err);
         res.status(500).send('SERVER ERROR');
     }

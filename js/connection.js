@@ -95,7 +95,7 @@ async function addDevice(location_school, electrocardiogram, inertial_measuremen
             let deviceV = [model_number, device_status, date_deployed, ...device_fkey]
 
             await new Promise((resolve, reject) => {
-                connection.query(deviceQ, deviceV, function (err, result) {
+                connection.query(deviceQ, deviceV, function (err) {
                     if (err) {
                         return reject(err);
                     }
@@ -128,12 +128,9 @@ async function addDevice(location_school, electrocardiogram, inertial_measuremen
 
 function changeStatus(device, status) {
 
-
     for (let i of device) {
 
-
         id = parseInt(i)
-
 
         const query = 'UPDATE device SET device_status = ? WHERE model_number = ?'
 
