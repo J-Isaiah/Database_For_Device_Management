@@ -48,7 +48,7 @@ app.get('/showDevices', async function (req, res) {
                 };
             });
             //Renders show devices page, with the input formatted devices
-            //Devices Is the EJS id
+            // Is the EJS id
             res.render('show_devices', {devices: formattedData});
         }
     } catch (err) {
@@ -57,56 +57,72 @@ app.get('/showDevices', async function (req, res) {
         res.status(500).send('SERVER ERROR');
     }
 });
-// Adding Device page
+// On click, re routs to add device screen rendering add_devices.ejs
 app.get('/addDevice', function (req, res) {
     console.log('WORKING')
     res.render('add_devices')
 })
 
+//On submit button click takes form information and send the sql query to the database inserting devices.
 app.post('/addDevice', async function (req, res) {
+    //calls the function req.body as body
     const body = req.body
+    //calls addDevice Function and uses form data from ejs as the input data
     await db.addDevice(body.location_school, body.electrocardiogram, body.inertial_measurement_unit, body.optical_pulse_oximeter, body.microphone, body.temperature_sensor, body.electronic_nose, body.galvanic_skin_response, body.micro_controller_number, body.real_time_clock_model_number, body.info_about_data_storage, body.firmware_version, body.date_installed, body.model_number, body.device_status, body.date_deployed)
+    //After query completion re-directs to the main page
     res.render('index')
 })
-//redirects to a page to change the status of devices
+// Redirects to change status page on button click
 app.get('/changeStatus', async function (req, res) {
     console.log('Redirected to change status')
     try {
+        //Calls function to display all devices
         const result = await db.allDevices();
+        //Checks if database is empty
         if (result.length === 0) {
+            //If empty renders message
             res.send('No Devices in the database')
         } else {
+            // stores formatted query data as formattedData
             const formattedData = result.map(device => {
                 return {
                     model_number: device.model_number, university_name: device.university_name
                 }
             })
+
+            // Renders the change_status page with the formatted data as the input to the change_status.ejs file
             res.render('change_status', {devices: formattedData})
         }
     } catch (err) {
+        // if err records the error and displays error message
         console.log('There is an err')
         res.status(500).send('SERVER ERROR');
     }
 })
-
+//After submitting change status calls function updates the table to selected status in the form
 app.post('/changeStatus', async function (req, res) {
     {
         try {
+            // Stores information about device id as check will be an array if many is one normal int
             let check = req.body.deviceID
-            console.log(check)
+            //Checks to see if there are more than 1 device id selected in the form
             if (check === 1) {
+                // If only one device is selected, the int gets pushed into an empty array as device
                 var device = []
                 device.push(req.body.deviceID)
 
             } else {
+                // array gets stored as device
                 var device = req.body.deviceID
             }
-
+            // calls changeStatus function with input device and selected status
             db.changeStatus(device, req.body.status)
 
         } catch (err) {
+            //display err in the console
             console.log(err)
         }
+        // Redirects user to main page after form is submitted
         res.render('index')
     }
 })
