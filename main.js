@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 const db = require('./js/connection')
 
 
-
 app.set('view engine', 'ejs') // sets the view engin to look for .ejs files
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))

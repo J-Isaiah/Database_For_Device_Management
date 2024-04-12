@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Show Devices</title>
+
     <style>
         th, td {
             border: 1px solid black;
@@ -14,11 +15,54 @@
             margin-top: 20px;
             margin-bottom: 20px;
         }
+
+        .button-link {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .nav-bar {
+            position: relative;
+            background-color: lightgray;
+            padding: 10px;
+
+        }
+
+        .nav {
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            gap: 25px;
+            width: 100%;
+            height: 2rem;
+        }
+
+        .button-link {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
 
 <h1>Devices</h1>
+<div class="nav-bar">
+    <nav class="nav">
+        <a href="/showDevices" class="button-link">All Devices</a>
+        <a href="/addDevice" class="button-link">Add New Device</a>
+        <a href="/changeStatus" class="button-link">Change Device Status</a>
+    </nav>
+</div>
 <% devices.forEach(device => { %>
     <div id="main">
         <div>
