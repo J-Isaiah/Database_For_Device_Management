@@ -1,7 +1,7 @@
 const mysql = require('mysql2')
 // Enables .env files to be read in as data
 require('dotenv').config();
-// Shortens connection statment and stores it as connection
+
 const connection = mysql.createConnection({
     // enables multiple sql queries in one connection
     multipleStatements: true, // Uses environment variables as the input

@@ -126,6 +126,12 @@ app.post('/changeStatus', async function (req, res) {
     }
 })
 
+
+app.get('/login', (req, res) => {
+    res.render('login')
+})
+
+app
 app.listen(8080, () => {
-    console.log('Server is listening on port 8080');
+    console.log('Server is listening on port 808');
 });
