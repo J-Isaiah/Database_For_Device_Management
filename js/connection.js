@@ -16,6 +16,7 @@ const connection = mysql.createConnection({
  * @returns device data
  */
 function allDevices() {
+    console.log('working')
     //Select statement to the database
     let select_all_devices = `SELECT location_school.university_name,
                device.model_number,
@@ -164,6 +165,19 @@ async function addDevice(location_school, electrocardiogram, inertial_measuremen
     });
 }
 
+function fetchUsers(username) {
+    return new Promise((resolve, reject) => {
+        connection.execute('SELECT * FROM users WHERE username =?',[username], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+
 /**
  * changes device status by updating the status table in the database
  * @param device -- sent as string
@@ -189,4 +203,4 @@ function changeStatus(device, status) {
 }
 
 
-module.exports = {addDevice, allDevices, changeStatus}
+module.exports = {addDevice, allDevices, changeStatus, fetchUsers}
