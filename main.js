@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
 const db = require('./js/connection')
+const bcrypt = require('bcrypt')
 
 
 app.set('view engine', 'ejs') // sets the view engin to look for .ejs files
@@ -125,6 +126,40 @@ app.post('/changeStatus', async function (req, res) {
         res.render('index')
     }
 })
+app.get('/login', async (req, res) => {
+    res.render('login')
+})
+
+app.post('/login', async (req, res) => {
+    const username = req.body.username
+    const loginPassword = req.body.password
+    try {
+        var result = await db.fetchUsers(username)
+        if (result.length > 0) {
+            const user = result[0]
+            const storedHashedPassword = user.password
+            bcrypt.compare(loginPassword, storedHashedPassword, (err, result) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    if (result) {
+                        res.render('index.ejs')
+                        console.log('User Authenticated')
+
+                    } else {
+                        res.send('incorrect password')
+                    }
+                }
+            })
+        } else {
+            res.send('user not found')
+        }
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).send('Error fetching users');
+    }
+});
+
 
 app.listen(8080, () => {
     console.log('Server is listening on port 8080');
