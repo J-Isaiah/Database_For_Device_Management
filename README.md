@@ -45,6 +45,6 @@ In CLI:
 Support
 -------
 
-If you are having issues, please email me at isaiahJacobsen@unomaha.edu
+If you are having issues, please email me at isaiah
 
 

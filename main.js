@@ -200,6 +200,7 @@ passport.serializeUser((user, cb) => {
 passport.deserializeUser((user, cb) => {
     cb(null, user)
 })
+
 app.listen(8080, () => {
     console.log('Server is listening on port 8080');
 });
