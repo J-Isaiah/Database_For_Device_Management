@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt')
 const session = require('express-session')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
+const {isAuthenticated} = require("passport/lib/http/request");
 
 
 app.set('view engine', 'ejs') // sets the view engin to look for .ejs files
@@ -86,12 +87,16 @@ app.get('/addDevice', function (req, res) {
 
 //On submit button click takes form information and send the sql query to the database inserting devices.
 app.post('/addDevice', async function (req, res) {
-    //calls the function req.body as body
-    const body = req.body
-    //calls addDevice Function and uses form data from ejs as the input data
-    await db.addDevice(body.location_school, body.electrocardiogram, body.inertial_measurement_unit, body.optical_pulse_oximeter, body.microphone, body.temperature_sensor, body.electronic_nose, body.galvanic_skin_response, body.micro_controller_number, body.real_time_clock_model_number, body.info_about_data_storage, body.firmware_version, body.date_installed, body.model_number, body.device_status, body.date_deployed)
-    //After query completion re-directs to the main page
-    res.render('index')
+    if (req.isAuthenticated()) {//calls the function req.body as body
+        const body = req.body
+        //calls addDevice Function and uses form data from ejs as the input data
+        await db.addDevice(body.location_school, body.electrocardiogram, body.inertial_measurement_unit, body.optical_pulse_oximeter, body.microphone, body.temperature_sensor, body.electronic_nose, body.galvanic_skin_response, body.micro_controller_number, body.real_time_clock_model_number, body.info_about_data_storage, body.firmware_version, body.date_installed, body.model_number, body.device_status, body.date_deployed)
+        //After query completion re-directs to the main page
+        res.render('index')
+    } else {
+        res.redirect('/login')
+    }
+
 })
 // Redirects to change status page on button click
 app.get('/changeStatus', async function (req, res) {
@@ -116,7 +121,7 @@ app.get('/changeStatus', async function (req, res) {
             }
         } catch (err) {
             // if err records the error and displays error message
-            console.log('There is an err')
+            console.log('There is an', err)
             res.status(500).send('SERVER ERROR');
         }
     } else {
@@ -125,7 +130,7 @@ app.get('/changeStatus', async function (req, res) {
 })
 //After submitting change status calls function updates the table to selected status in the form
 app.post('/changeStatus', async function (req, res) {
-    {
+    if (req.isAuthenticated()) {
         try {
             // Stores information about device id as check will be an array if many is one normal int
             let check = req.body.deviceID
@@ -148,10 +153,13 @@ app.post('/changeStatus', async function (req, res) {
         }
         // Redirects user to main page after form is submitted
         res.render('index')
+    } else {
+        res.redirect('/login')
     }
 })
 app.get('/login', async (req, res) => {
     res.render('login')
+
 })
 
 app.post('/login', passport.authenticate('local', {
